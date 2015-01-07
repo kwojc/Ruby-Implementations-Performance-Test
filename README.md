@@ -1,5 +1,10 @@
-# Ruby-Implementations-Performance-Test
+# Ruby Implementations Performance Test
 
+This repository is created for performance tests between Ruby, jRuby and Rubinius.
+Tests runs single thread and multi thread tasks with few well-known math tasks.
+
+Requirements:
+Linux with RVM
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
