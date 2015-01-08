@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    CFPropertyList (2.2.8)
     actionmailer (4.2.0)
       actionpack (= 4.2.0)
       actionview (= 4.2.0)
@@ -56,6 +57,8 @@ GEM
     debugger-linecache (1.2.0)
     erubis (2.7.0)
     execjs (2.2.2)
+    facter (2.3.0)
+      CFPropertyList (~> 2.2.6)
     globalid (0.3.0)
       activesupport (>= 4.1.0)
     hike (1.2.3)
@@ -160,6 +163,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.1.0)
   execjs
+  facter
   jbuilder (~> 2.0)
   jquery-rails
   jruby-openssl

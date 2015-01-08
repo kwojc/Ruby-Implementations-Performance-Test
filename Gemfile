@@ -40,6 +40,8 @@ end
 
 gem 'execjs'
 gem 'quiet_assets'
+gem 'facter'
+
 platform :jruby do
   gem 'jruby-openssl'
   gem 'therubyrhino'
