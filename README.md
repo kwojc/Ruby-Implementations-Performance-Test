@@ -6,6 +6,15 @@ Tests runs single thread and multi thread tasks with few well-known math tasks.
 Requirements:
 Linux with RVM
 
+How to run test?
+select platform which you want test eg.: rvm use jruby
+bundle
+rake test:run > output.csv
+(go shopping, drink coffee, whatever...)
+
+In output.csv you can find rows with format:
+test name;ruby platform;ruby version;time spent in test (float)
+
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
