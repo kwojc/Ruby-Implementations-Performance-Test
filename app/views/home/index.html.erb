@@ -1,0 +1,64 @@
+<h2>Execution time of tested platforms</h2>
+<% @system_groups.each do |test_name, group| %>
+    <% @times = [] %>
+    <% @data_array = [] %>
+    <% i = 0 %>
+    <% lines_colors = [] %>
+    <% group.each do |system, result| %>
+        <% lines_colors << "%06x" % (rand * 0xffffff) %>
+        <% @data_array[i] = [] %>
+        <% result.each do |r| %>
+            <% @data_array[i] << r.time %>
+            <% @times << number_to_human(r.time, precision: 6, strip_insignificant_zeros: false).to_s + 's' %>
+        <% end %>
+        <% i += 1 %>
+    <% end %>
+    <% @times.sort! %>
+    <% @times = [@times.first] + @times.in_groups_of(3).collect { |g| g.last }.compact %>
+    <% @times.uniq! %>
+    <img src="<%= Gchart.line(:size => '850x350',
+                              :title => test_name + ' - executed times',
+                              :bg => 'efefef',
+                              :legend => group.keys,
+                              :axis_with_labels => 'x,y',
+                              :axis_labels => [(1..50).to_a.in_groups_of(2).collect { |g| g[1] }.compact.join('|'), @times.join('|')],
+                              :data => @data_array,
+                              :line_colors => lines_colors.join('|')
+                  ) %>"/>
+    <br/><br/>
+<% end %>
+<hr/>
+<h2>Average execution time of tests</h2>
+
+<% @system_groups.each do |test_name, group| %>
+    <% @times = [] %>
+    <% @data_array = [] %>
+    <% i = 0 %>
+    <% bar_colors = [] %>
+    <% y_labels = [] %>
+    <% group.each do |system, result| %>
+        <% bar_colors << "%06x" % (rand * 0xffffff) %>
+        <% sum = 0 %>
+        <% y_labels[i] = [] if y_labels[i] == nil %>
+        <% result.each do |r| %>
+            <% sum += r.time %>
+            <% y_labels[i] = number_to_human(r.time, precision: 6, strip_insignificant_zeros: false) %>
+        <% end %>
+        <% @times << number_to_human(sum / result.length, precision: 6, strip_insignificant_zeros: false).to_f %>
+    <% end %>
+    <% y_labels[i] = y_labels.max %>
+    <% y_labels.sort! %>
+    <% y_labels = [0] + [y_labels.first] + y_labels.in_groups_of(3).collect { |g| g.last }.compact + [y_labels.last] %>
+    <% y_labels.uniq! %>
+    <% i += 1 %>
+    <img src="<%= Gchart.bar(:size => '850x350',
+                             :data => @times,
+                             :stacked => false,
+                             :title => test_name,
+                             :axis_with_labels => 'y',
+                             :axis_labels => [y_labels.join('|')],
+                             :legend => group.keys,
+                             :bar_colors => bar_colors.join('|')) %>"/>
+
+    <br/><br/>
+<% end %>

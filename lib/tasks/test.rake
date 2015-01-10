@@ -1,12 +1,20 @@
 namespace :test do
   desc 'Run everything'
   task run: :environment do
-    Rake::Task["test:single_fibo"].invoke
-    Rake::Task["test:single_factorial"].invoke
-    Rake::Task["test:multi_fibo"].invoke
-    Rake::Task["test:multi_factorial"].invoke
-    Rake::Task["test:single_hanoi"].invoke
-    Rake::Task["test:multi_hanoi"].invoke
+    Rake::Task['test:clean'].invoke
+    Rake::Task['test:single_fibo'].invoke
+    Rake::Task['test:single_factorial'].invoke
+    Rake::Task['test:multi_fibo'].invoke
+    Rake::Task['test:multi_factorial'].invoke
+    Rake::Task['test:single_hanoi'].invoke
+    Rake::Task['test:multi_hanoi'].invoke
+  end
+
+  desc 'Clean environment with current RUBY_ENGINE and RUBY_VERSION'
+  task clean: :environment do
+    Result.all.where(engine: RUBY_ENGINE, version: RUBY_VERSION).each do |result|
+      result.delete
+    end
   end
 
   desc 'Calculates Fibonacci of 30 - one thread | 50 times'
@@ -14,7 +22,9 @@ namespace :test do
     for times in 1..50
       start = Time.now.to_f
       MyMath.fibonacci 30
-      puts 'Single thread fibonacci;' + RUBY_ENGINE + ';' + RUBY_VERSION + ';' + (Time.now.to_f - start).to_s
+      r = Result.new(name: '1 thread fibonacci', engine: RUBY_ENGINE, version: RUBY_VERSION, time: (Time.now.to_f - start).to_s)
+      r.save
+      puts r.to_csv
     end
   end
 
@@ -23,7 +33,9 @@ namespace :test do
     for times in 1..50
       start = Time.now.to_f
       MyMath.factorial 20
-      puts 'Single thread factorial;' + RUBY_ENGINE+ ';' + RUBY_VERSION + ';' + (Time.now.to_f - start).to_s
+      r = Result.new(name: '1 thread factorial', engine: RUBY_ENGINE, version: RUBY_VERSION, time: (Time.now.to_f - start).to_s)
+      r.save
+      puts r.to_csv
     end
   end
 
@@ -41,7 +53,9 @@ namespace :test do
             MyMath.fibonacci 30
           }
         end.each(&:join)
-        puts (processors_count+i).to_s + ' threads fibonacci;' + RUBY_ENGINE+ ';' + RUBY_VERSION + ';' + (Time.now.to_f - start).to_s
+        r = Result.new(name: (processors_count+i).to_s + ' threads fibonacci', engine: RUBY_ENGINE, version: RUBY_VERSION, time: (Time.now.to_f - start).to_s)
+        r.save
+        puts r.to_csv
       end
     end
   end
@@ -59,7 +73,9 @@ namespace :test do
             MyMath.factorial 20
           }
         end.each(&:join)
-        puts (processors_count+i).to_s + ' threads factorial;' + RUBY_ENGINE+ ';' + RUBY_VERSION + ';' + (Time.now.to_f - start).to_s
+        r = Result.new(name: (processors_count+i).to_s + ' threads factorial', engine: RUBY_ENGINE, version: RUBY_VERSION, time: (Time.now.to_f - start).to_s)
+        r.save
+        puts r.to_csv
       end
     end
   end
@@ -72,7 +88,9 @@ namespace :test do
       #puts toh.stacks.to_s
       toh.run
       #puts toh.stacks.to_s
-      puts 'Single thread hanoi;' + RUBY_ENGINE+ ';' + RUBY_VERSION + ';' + (Time.now.to_f - start).to_s
+      r = Result.new(name: '1 thread hanoi', engine: RUBY_ENGINE, version: RUBY_VERSION, time: (Time.now.to_f - start).to_s)
+      r.save
+      puts r.to_csv
     end
   end
 
@@ -90,7 +108,9 @@ namespace :test do
             toh.run
           }
         end.each(&:join)
-        puts (processors_count+i).to_s + ' threads hanoi;'+ ';' + RUBY_ENGINE + RUBY_VERSION + ';' + (Time.now.to_f - start).to_s
+        r = Result.new(name: (processors_count+i).to_s + ' threads hanoi', engine: RUBY_ENGINE, version: RUBY_VERSION, time: (Time.now.to_f - start).to_s)
+        r.save
+        puts r.to_csv
       end
     end
   end
