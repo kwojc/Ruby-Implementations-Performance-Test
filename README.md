@@ -15,6 +15,10 @@ rake test:run > output.csv
 In output.csv you can find rows with format:
 test name;ruby platform;ruby version;time spent in test (float)
 
+
+Want to display results?
+Run rails server, google charts will do the job :confetti_ball:
+
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
 EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
 MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
