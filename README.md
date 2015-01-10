@@ -7,13 +7,22 @@ Requirements:
 Linux with RVM
 
 How to run test?
+
 select platform which you want test eg.: rvm use jruby
+
 bundle
-rake test:run > output.csv
+
+rake test:run
+
 (go shopping, drink coffee, whatever...)
 
 In output.csv you can find rows with format:
+
 test name;ruby platform;ruby version;time spent in test (float)
+
+
+##What we test?
+Single and multi-thread fibonacci, factorial and hanoi tower.
 
 
 Want to display results?
