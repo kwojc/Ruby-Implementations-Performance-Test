@@ -45,10 +45,13 @@ platform :jruby do
   gem 'jruby-openssl'
   gem 'therubyrhino'
   gem 'tzinfo-data'
+  gem 'activerecord-jdbc-adapter'
   gem 'activerecord-jdbcsqlite3-adapter'
+  gem 'activerecord-jdbcmysql-adapter'
 end
 
 platform :ruby do
   gem 'therubyracer'
   gem 'sqlite3'
+  gem 'mysql2'
 end

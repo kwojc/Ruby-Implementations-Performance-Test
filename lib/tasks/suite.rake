@@ -1,13 +1,13 @@
-namespace :test do
+namespace :suite do
   desc 'Run everything'
   task run: :environment do
-    Rake::Task['test:clean'].invoke
-    Rake::Task['test:single_fibo'].invoke
-    Rake::Task['test:single_factorial'].invoke
-    Rake::Task['test:multi_fibo'].invoke
-    Rake::Task['test:multi_factorial'].invoke
-    Rake::Task['test:single_hanoi'].invoke
-    Rake::Task['test:multi_hanoi'].invoke
+    Rake::Task['suite:clean'].invoke
+    Rake::Task['suite:single_fibo'].invoke
+    Rake::Task['suite:single_factorial'].invoke
+    Rake::Task['suite:multi_fibo'].invoke
+    Rake::Task['suite:multi_factorial'].invoke
+    Rake::Task['suite:single_hanoi'].invoke
+    Rake::Task['suite:multi_hanoi'].invoke
   end
 
   desc 'Clean environment with current RUBY_ENGINE and RUBY_VERSION'
@@ -40,13 +40,13 @@ namespace :test do
   end
 
 
-  desc 'Calculates Fibonacci of 30 - $numberOfCpuCores..($numberOfCpuCores + 0..$numberOfCpuCores*3) threads | 50 times'
+  desc 'Calculates Fibonacci of 30 - $numberOfCpuCores..($numberOfCpuCores + 0..$numberOfCpuCores+2) threads | 50 times'
   task multi_fibo: :environment do
     Facter.loadfacts
     processors_count = Facter.value(:processors).count
     require 'my_math'
     for times in 1..50
-      0.upto(processors_count*3) do |i|
+      0.upto(processors_count+2) do |i|
         start = Time.now.to_f
         1.upto(processors_count+i).map do |n|
           Thread.new {
@@ -60,13 +60,13 @@ namespace :test do
     end
   end
 
-  desc 'Calculates factorial of 20 - $numberOfCpuCores..($numberOfCpuCores + 0..$numberOfCpuCores*3) threads | 50 times'
+  desc 'Calculates factorial of 20 - $numberOfCpuCores..($numberOfCpuCores + 0..$numberOfCpuCores+2) threads | 50 times'
   task multi_factorial: :environment do
     Facter.loadfacts
     processors_count = Facter.value(:processors).count
     require 'my_math'
     for times in 1..50
-      0.upto(processors_count*3) do |i|
+      0.upto(processors_count+2) do |i|
         start = Time.now.to_f
         1.upto(processors_count+i).map do |n|
           Thread.new {
@@ -94,14 +94,14 @@ namespace :test do
     end
   end
 
-  desc 'Calculates 25 elements hanoi tower - ($numberOfCpuCores + 0..$numberOfCpuCores*3) threads | 50 times'
+  desc 'Calculates 25 elements hanoi tower - ($numberOfCpuCores + 0..$numberOfCpuCores+2) threads | 50 times'
   task multi_hanoi: :environment do
     Facter.loadfacts
     processors_count = Facter.value(:processors).count
     require 'hanoi_towers'
     for times in 1..50
       start = Time.now.to_f
-      0.upto(processors_count*3) do |i|
+      0.upto(processors_count+2) do |i|
         1.upto(processors_count+i).map do |n|
           Thread.new {
             toh = HanoiTowers.new(25)

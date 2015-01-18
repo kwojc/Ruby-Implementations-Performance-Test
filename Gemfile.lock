@@ -72,6 +72,7 @@ GEM
     mini_portile (0.6.2)
     minitest (5.5.0)
     multi_json (1.10.1)
+    mysql2 (0.3.17)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
     quiet_assets (1.1.0)
@@ -141,6 +142,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord-jdbc-adapter
+  activerecord-jdbcmysql-adapter
   activerecord-jdbcsqlite3-adapter
   coffee-rails (~> 4.1.0)
   execjs
@@ -149,6 +152,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jruby-openssl
+  mysql2
   quiet_assets
   rails (= 4.2.0)
   sass-rails (~> 5.0)
