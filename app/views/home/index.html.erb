@@ -23,8 +23,9 @@
                               :axis_with_labels => 'x,y',
                               :axis_labels => [(1..50).to_a.in_groups_of(2).collect { |g| g[1] }.compact.join('|'), @times.join('|')],
                               :data => @data_array,
-                              :line_colors => lines_colors.join('|')
+                              :line_colors => lines_colors.join(',')
                   ) %>"/>
+    <%= lines_colors.inspect %>
     <br/><br/>
 <% end %>
 <hr/>
