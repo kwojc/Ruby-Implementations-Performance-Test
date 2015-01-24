@@ -41,6 +41,10 @@ gem 'quiet_assets'
 gem 'facter'
 gem 'googlecharts', :require => 'gchart'
 
+gem 'webrick'
+gem 'puma'
+gem 'thin'
+
 platform :jruby do
   gem 'jruby-openssl'
   gem 'therubyrhino'

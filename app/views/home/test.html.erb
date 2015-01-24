@@ -1,0 +1,12 @@
+<form action="<%= run_path %>">
+  <input type="text" name="factorial" placeholder="Factorial param"><br/>
+  <input type="text" name="fibonacci" placeholder="Fibonacci param"><br/>
+  <input type="text" name="times" placeholder="Repeat X times"><br/>
+  <input type="text" name="threads" placeholder="Threads count"><br/>
+  <button type="submit">GO!</button>
+</form>
+
+Available servers:
+Webrick: bundle exec rails server webrick -b 0.0.0.0 (default port is 3000)</br>
+Puma: bundle exec puma (default port is 9292)<br/>
+Thin: bundle exec rails server thin -b 0.0.0.0 (default port is 3000)</br>

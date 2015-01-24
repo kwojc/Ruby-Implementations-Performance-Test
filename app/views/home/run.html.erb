@@ -1,0 +1,27 @@
+<h2>Execution time of tested params | <a href="<%= test_path %>">Go back</a></h2>
+<br/>
+Time spent in controller action: <%= number_to_human(@request_time, precision: 3, strip_insignificant_zeros: false).to_s + 's' %>
+<br/>
+<% @results.each do |test_name, tests| %>
+    <h2><%= test_name %></h2>
+    <% @times = [] %>
+    <% @data_array = [] %>
+    <% tests.each do |t| %>
+        <% @times << number_to_human(t.time, precision: 3, strip_insignificant_zeros: false).to_s + 's' %>
+        <% @data_array << t.time %>
+    <% end %>
+    <img src="<%= Gchart.line(:size => '850x350',
+                              :title => test_name,
+                              :bg => 'efefef',
+                              :axis_with_labels => 'x,y',
+                              :axis_labels => [1.upto(params[:times].to_i).to_a.sort.uniq.join('|'), @times.join('|')],
+                              :data => @data_array
+                  ) %>"/>
+    <br/>
+    <%
+       sum = 0
+       @data_array.each { |b| sum += b }
+       average = sum / @data_array.length
+    %>
+    Average: <%= number_to_human(average, precision: 3, strip_insignificant_zeros: false).to_s + 's' %><br/>
+<% end %>
